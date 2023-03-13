@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Image Classification</title>
+    <link rel="stylesheet" href="./style.css">
+  </head>
+  <body>
+    <div class="container">
+      <h1>Image Classification Test</h1>
+      <p>Click on the button that corresponds to the type of image you see</p>
+      <img id="image" src="./data/images/1.png" alt="CNN Image">
+      <div id="score-display">
+        <p id="user-score"></p>
+        <p id="cnn-score"></p>
+      </div>
+
+      <div id="options">
+        <button id="typeA" class="options">Type A</button>
+        <button id="typeB" class="options">Type B</button>
+        <button id="typeC" class="options">Type C</button>
+      </div>
+      <button id="next">Continue to next image</button>
+    </div>
+    <script src="./script.js"></script>
+  </body>
+</html>
