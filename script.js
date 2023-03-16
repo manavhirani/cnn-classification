@@ -6,62 +6,17 @@ const nextButton = document.getElementById("next");
 const optionButtons = document.querySelectorAll(".options");
 
 const imagePaths = [];
+for (i = 0; i < 10; i++) {
+    imagePaths.push(`./data/images/${i}.png`)
+}
+
 let userScore = 0;
 let cnnScore = 0;
-let outOf = 0
-
-
-fetch('./data/images/')
-    .then(response => response.text())
-    .then(text => {
-        const parser = new DOMParser();
-        const html = parser.parseFromString(text, 'text/html');
-        const images = html.querySelectorAll('a[href$=".jpg"], a[href$=".png"], a[href$=".gif"]');
-        outOf = images.length;
-        console.log(outOf)
-        images.forEach(image => {
-            const imagePath = image.getAttribute('href');
-            imagePaths.push(imagePath);
-        });
-        updateScoreDisplay()
-    })
-    .catch(error => console.error(error));
+let outOf = 0;
 
 const actualTypeUrl = './data/actual_results/actual_types.csv';
 let actualTypes = [];
 
-const actualTypesPromise = fetch(actualTypeUrl)
-  .then(response => response.text())
-  .then(csv => {
-    const rows = csv.split('\n').slice(1);
-    const types = rows[0].split(',')
-    actualTypes = types
-    console.log(actualTypes)
-  })
-  .catch(error => console.error(error));
-
-  const cnnTypeUrl = './data/cnn_results/cnn_types.csv';
-  let cnnTypes = [];
-  
-  const cnnTypesPromise = fetch(cnnTypeUrl)
-    .then(response => response.text())
-    .then(csv => {
-      const rows = csv.split('\n').slice(1);
-      const types = rows[0].split(',')
-      cnnTypes = types
-      console.log(cnnTypes)
-    })
-    .catch(error => console.error(error));
-    const typeButtons = {
-        'Type A': typeAButton,
-        'Type B': typeBButton,
-        'Type C': typeCButton
-      };
-      
-      optionButtons.forEach(button => {
-        button.addEventListener("click", buttonClickHandler);
-      });
-      
 let currentImageIndex = 0;
 
 nextButton.addEventListener("click", function() {
