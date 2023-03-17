@@ -6,18 +6,32 @@ const nextButton = document.getElementById("next");
 const optionButtons = document.querySelectorAll(".options");
 
 const imagePaths = [];
-for (i = 0; i < 10; i++) {
-    imagePaths.push(`./data/images/${i}.png`)
-}
+const typeButtons = {
+    'Type A': typeAButton,
+    'Type B': typeBButton,
+    'Type C': typeCButton
+  };
 
 let userScore = 0;
 let cnnScore = 0;
-let outOf = 0;
+let outOf = 10;
 
-const actualTypeUrl = './data/actual_results/actual_types.csv';
-let actualTypes = [];
+// const actualTypeUrl = './data/actual_results/actual_types.csv';
+const actualTypes = ['Type B', 'Type C', 'Type A', 'Type A', 'Type C', 'Type B', 'Type B', 'Type C', 'Type C', 'Type C'];
+const cnnTypes = ['Type A', 'Type A', 'Type C', 'Type B', 'Type C', 'Type A', 'Type B', 'Type C', 'Type A', 'Type C'];
 
-let currentImageIndex = 0;
+for (i = 0; i < 10; i++) {
+    imagePaths.push(`./data/images/${i+1}.png`)
+}
+
+let currentImageIndex = 1;
+
+optionButtons.forEach(button => {
+    button.classList.remove('correct')
+    button.classList.remove('cnn')
+    button.classList.remove('incorrect')
+    button.addEventListener('click', buttonClickHandler);
+})
 
 nextButton.addEventListener("click", function() {
     // console.log(currentImageIndex);
@@ -44,8 +58,8 @@ nextButton.addEventListener("click", function() {
 });
 
 function buttonClickHandler() {
-    const actualType = actualTypes[currentImageIndex];
-    const cnnType = cnnTypes[currentImageIndex];
+    const actualType = actualTypes[currentImageIndex - 1];
+    const cnnType = cnnTypes[currentImageIndex - 1];
     const textContent = this.textContent;
     if ((textContent != actualType) & (textContent != cnnType)) {
         this.classList.add('incorrect')
@@ -80,3 +94,4 @@ function buttonClickHandler() {
     cnnScoreDisplay.textContent = `CNN Score: ${cnnScore}/${outOf}`;
   }
 
+updateScoreDisplay()
